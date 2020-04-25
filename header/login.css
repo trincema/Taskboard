@@ -1,0 +1,81 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: darkcyan;
+    background-size: cover;
+}
+.login-box
+{
+    background:rgba(44, 62, 80, 0.7);
+	width:250px;
+	height:430px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+ 
+   
+    
+}
+form
+{
+    width: 240px;
+    text-align: center;
+}
+input
+{
+    width: 240px;
+    text-align: center;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    font-family: 'Play', sans-serif;
+    font-size: 16px;
+    font-weight: 200px;
+    padding: 10px 0;
+    transition: border 0.5s;
+    outline: none;
+    color: #fff;
+}
+input[type=button]
+{
+    border: none;
+    width: 190px;
+    background: white;
+    color: #000;
+    font-size: 16px;
+    line-height: 25px;
+    padding: 10px 0;
+    border-radius: 15px;
+    cursor: pointer;
+}
+input[type=button]:hover
+{
+    color: white;
+    background-color: black;
+}
+h1
+{
+    color: blueviolet;
+    
+}
+a
+{
+    color: yellow;
+    text-decoration: blink;
+}
+a:hover
+{
+    color: skyblue;
+}
+.container
+{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+::placeholder {
+    color:aliceblue;
+    opacity: 0.8; /* Firefox */
+}
