@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title><B> <i> <u> Paris-Capitala muzeelor unice </u> </i> </B></title>
+	<title><B> <i> <u> TaskBoard </u> </i> </B></title>
 	<?php
 		include 'db_connection.php';
 		initializeDatabase();
