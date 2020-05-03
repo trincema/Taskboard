@@ -1,81 +1,53 @@
-body{
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    background-color: darkcyan;
-    background-size: cover;
+.login-form {
+    width: 385px;
+    margin: 30px auto;
 }
-.login-box
-{
-    background:rgba(44, 62, 80, 0.7);
-	width:250px;
-	height:430px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
- 
-   
-    
+.login-form form {        
+    margin-bottom: 15px;
+    background: #f7f7f7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
 }
-form
-{
-    width: 240px;
-    text-align: center;
+.login-form h2 {
+    margin: 0 0 15px;
 }
-input
-{
-    width: 240px;
-    text-align: center;
-    background: transparent;
+.form-control, .login-btn {
+    min-height: 38px;
+    border-radius: 2px;
+}
+.input-group-addon .fa {
+    font-size: 18px;
+}
+.login-btn {
+    font-size: 15px;
+    font-weight: bold;
+}
+.social-btn .btn {
     border: none;
-    border-bottom: 1px solid #fff;
-    font-family: 'Play', sans-serif;
-    font-size: 16px;
-    font-weight: 200px;
-    padding: 10px 0;
-    transition: border 0.5s;
-    outline: none;
-    color: #fff;
+    margin: 10px 3px 0;
+    opacity: 1;
 }
-input[type=button]
-{
-    border: none;
-    width: 190px;
-    background: white;
-    color: #000;
-    font-size: 16px;
-    line-height: 25px;
-    padding: 10px 0;
-    border-radius: 15px;
-    cursor: pointer;
+.social-btn .btn:hover {
+    opacity: 0.9;
 }
-input[type=button]:hover
-{
-    color: white;
-    background-color: black;
+.social-btn .btn-primary {
+    background: #507cc0;
 }
-h1
-{
-    color: blueviolet;
-    
+.social-btn .btn-info {
+    background: #64ccf1;
 }
-a
-{
-    color: yellow;
-    text-decoration: blink;
+.social-btn .btn-danger {
+    background: #df4930;
 }
-a:hover
-{
-    color: skyblue;
+.or-seperator {
+    margin-top: 20px;
+    text-align: center;
+    border-top: 1px solid #ccc;
 }
-.container
-{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-::placeholder {
-    color:aliceblue;
-    opacity: 0.8; /* Firefox */
+.or-seperator i {
+    padding: 0 10px;
+    background: #f7f7f7;
+    position: relative;
+    top: -11px;
+    z-index: 1;
 }

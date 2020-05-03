@@ -24,27 +24,46 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 	<link rel="stylesheet" type="text/css" href="login.css">
 	<script type="text/javascript" src="login.js"></script>
-	<link href="https://fonts.googleapis.com/css?family=Play" rel="stylesheet">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 </head>
 <body>
-    <form method="post" action="">
-        <div class="login-box">
-            <div class="textbox">
-                  <h1>Log in</h1>  
-				<input type="text" name="Email" placeholder="Email"/><br /><br />
-				<input type="password" name="password" placeholder="Password" /><br /><br />
-				<input type="submit"  value="Submit"> <br><br>
-				<div id="container"><br>
-			<a href="reset.html" style=" margin-right:0px; font-size:13px; font-family:Tahoma, Geneva, sans-serif;">Reset password?</a> 
-    		<a href="forgot.html" style=" margin-left:30px; font-size:13px; font-family:Tahoma, Geneva, sans-serif;">Forget password</a> 
-    		</div><br /><br>
-			Don't have account?<a href="signup.html" style="font-family:'Play', sans-serif;">&nbsp;Sign Up</a>
-		</div>
-	</form>
-
+	<div class="login-form">
+		<form method="post" action="">
+		<h2 class="text-center">Sign in</h2>   
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+					<input type="text" class="form-control" name="username" placeholder="Username" required="required">				
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+					<input type="password" class="form-control" name="password" placeholder="Password" required="required">				
+				</div>
+			</div>        
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary login-btn btn-block">Sign in</button>
+			</div>
+			<div class="clearfix">
+				<label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+				<a href="#" class="pull-right">Forgot Password?</a>
+			</div>
+		</form>
+		<p class="text-center text-muted small">Don't have an account? <a href="http://localhost/Taskboard/header/register.php">Sign up here!</a></p>
+	</div>
 </body>
 </html>
