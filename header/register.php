@@ -83,7 +83,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				<div class="input-group">
 					<span class="input-group-addon">
 						<i class="fa fa-lock"></i>
-						<i class="fa fa-check"></i>
 					</span>
 					<input type="password" class="form-control" name="Confirm_Password" placeholder="Confirm Password" required="required">
 				</div>
