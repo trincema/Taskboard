@@ -1,11 +1,17 @@
 <?php
+	$db_hostname="127.0.0.1:3306";
+	$db_username="root";
+	$db_password="";
+	$database="taskboard";
+
 	function initializeDatabase() {
-		$hostname="127.0.0.1:3306";
-		$username="root";
-		$password="";
+		$db_hostname="127.0.0.1:3306";
+		$db_username="root";
+		$db_password="";
 		$database="taskboard";
 
-		$connection = mysqli_connect($hostname, $username, $password);
+
+		$connection = mysqli_connect($db_hostname, $db_username, $db_password);
 		if(!$connection) {
 			echo"Database Connection Error...".mysqli_connect_error();
 		} else {
@@ -77,7 +83,6 @@
 				"id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,".
 				"first_name VARCHAR(20) NOT NULL,".
 				"last_name VARCHAR(20) NOT NULL,".
-				"username VARCHAR(30) NOT NULL,".
 				"email VARCHAR(30) NOT NULL,".
 				"password VARCHAR(20) NOT NULL,".
 				"skill INT NOT NULL,".
