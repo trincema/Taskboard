@@ -87,6 +87,73 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 					<input type="password" class="form-control" name="Confirm_Password" placeholder="Confirm Password" required="required">
 				</div>
 			</div>
+			<!-- Skill -->
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="fa fa-lock"></i>
+					</span>
+					<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" style="width: 100%;" type="button" id="dropdownMenu1"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<span id="skill">C</span>
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li><a onclick="onSkillChanged('C');">C</a></li>
+						<li><a onclick="onSkillChanged('C++');">C++</a></li>
+						<li><a onclick="onSkillChanged('Java');">Java</a></li>
+					</ul>
+					</div>
+				</div>
+			</div>
+			<!-- Nivel Skill -->
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="fa fa-lock"></i>
+					</span>
+					<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" style="width: 100%;" type="button" id="dropdownMenu2"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<span id="skill_level">Level 1</span>
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+						<li><a onclick="onSkillLevelChanged(1);">Level 1</a></li>
+						<li><a onclick="onSkillLevelChanged(2);">Level 2</a></li>
+						<li><a onclick="onSkillLevelChanged(3);">Level 3</a></li>
+						<li><a onclick="onSkillLevelChanged(4);">Level 4</a></li>
+						<li><a onclick="onSkillLevelChanged(5);">Level 5</a></li>
+						<li><a onclick="onSkillLevelChanged(6);">Level 6</a></li>
+						<li><a onclick="onSkillLevelChanged(7);">Level 7</a></li>
+						<li><a onclick="onSkillLevelChanged(8);">Level 8</a></li>
+						<li><a onclick="onSkillLevelChanged(9);">Level 9</a></li>
+						<li><a onclick="onSkillLevelChanged(10);">Level 10</a></li>
+					</ul>
+					</div>
+				</div>
+			</div>
+			<!-- Working Hours -->
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="fa fa-lock"></i>
+					</span>
+					<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" style="width: 100%;" type="button" id="dropdownMenu3"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<span id="working_hours">8h/day</span>
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
+						<li><a onclick="onWorkingHoursChanged(4);">4h/day</a></li>
+						<li><a onclick="onWorkingHoursChanged(6);">6h/day</a></li>
+						<li><a onclick="onWorkingHoursChanged(8);">8h/day</a></li>
+					</ul>
+					</div>
+				</div>
+			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary login-btn btn-block">Sign in</button>
 			</div>
