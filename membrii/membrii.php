@@ -5,22 +5,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="membrii.css">
 	<script type="text/javascript" src="membrii.js"></script>
-	<title>Bootstrap Accordion Menu for All Purpose</title>		
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-	<script>
-	$(document).ready(function(){			
-		// Toggle plus minus icon on show hide of collapse element
-		$(".collapse").on('show.bs.collapse', function(){
-			$(this).parent(".card").find(".toggle").addClass("rotate");
-		}).on('hide.bs.collapse', function(){
-			$(this).parent(".card").find(".toggle").removeClass("rotate");
-		});
-	});
-</script>
 </head>
 <body style="weight: lightgrey;">
 	<div class="container mt-5">
@@ -54,7 +43,6 @@
 						<small><i><b>Skill:</b> Java</i></small>
 						<small class="text-muted"> <i>(Level 7)</i></small>
 					</li>
-					
 				</ul>
 			</div>
 		</div>

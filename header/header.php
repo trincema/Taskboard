@@ -26,8 +26,8 @@
 		<!-- Collection of nav links, forms, and other content for toggling -->
 		<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
 			<ul class="nav navbar-nav navbar-right ml-auto">
-				<li><a href="#" class="dropdown-item"><i class="fa fa-sign-in"></i> Sign In</a></li>
-				<li><a href="#" class="dropdown-item"><i class="fa fa-user-plus"></i> Sign Up</a></li>
+				<li><a href="#" class="dropdown-item" onclick="login()"><i class="fa fa-sign-in"></i> Sign In</a></li>
+				<li><a href="#" class="dropdown-item" onclick="register()"><i class="fa fa-user-plus"></i> Sign Up</a></li>
 				<li><a href="#" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a></li>
 			</ul>
 		</div>
