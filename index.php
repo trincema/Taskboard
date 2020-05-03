@@ -6,7 +6,7 @@
 		initializeDatabase();
 	?>
 </head>
-<frameset rows="15%,*">
+<frameset rows="50px,*" border="0">
 	<frame name="header" src="header/header.php"> </frame>
 	<frame name="content" src="content.html"> </frame>
 </frameset>
