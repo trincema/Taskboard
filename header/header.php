@@ -1,6 +1,6 @@
 <html>
 <head>
-<meta charset="utf-8">
+	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="header.css">
@@ -26,9 +26,9 @@
 		<!-- Collection of nav links, forms, and other content for toggling -->
 		<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
 			<ul class="nav navbar-nav navbar-right ml-auto">
-				<li><a href="#" class="dropdown-item" onclick="login()"><i class="fa fa-sign-in"></i> Sign In</a></li>
-				<li><a href="#" class="dropdown-item" onclick="register()"><i class="fa fa-user-plus"></i> Sign Up</a></li>
-				<li><a href="#" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a></li>
+				<li><a href="" class="dropdown-item" onclick="login()"><i class="fa fa-sign-in"></i> Sign In</a></li>
+				<li><a href="" class="dropdown-item" onclick="register()"><i class="fa fa-user-plus"></i> Sign Up</a></li>
+				<li><a href="" class="dropdown-item" onclick="logout()"><i class="fa fa-power-off"></i> Logout</a></li>
 			</ul>
 		</div>
 	</nav>

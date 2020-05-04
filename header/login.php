@@ -1,26 +1,32 @@
 <?php
-//verific in teammembers daca email si parola exista
+include "../db_connection.php";
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-	$username=$_POST['Email'];
+	session_start();
+	$username=$_POST['email'];
 	$password=$_POST['password'];
-	$sql = "SELECT id FROM Taskboard.TeamMembers WHERE username = '$username' and password = '$password'";
-	$connection = mysqli_connect("127.0.0.1:3306", "root", "");
-		if(!$connection) {
-			echo"Database Connection Error...".mysqli_connect_error();
-		} else {
-			
-			$retval = mysqli_query( $connection, $sql );
-			if(! $retval ) {
-				echo"Error access in table TeamMembers".mysqli_error($connection);
-			}
-		
-			$count = mysqli_num_rows($retval);
-			echo "$count";
-			if($count == 1) {
-				header("location: http://localhost/Taskboard");
-			 }
-		
+	$sql = "SELECT id FROM Taskboard.TeamMembers WHERE email = '$username' and password = '$password'";
+	$connection = mysqli_connect($db_hostname, $db_username, $db_password);
+	if(!$connection) {
+		echo"Database Connection Error...".mysqli_connect_error();
+	} else {
+		echo "Database Connection ok";
+		$retval = mysqli_query( $connection, $sql );
+		if(! $retval ) {
+			echo"Error access in table TeamMembers".mysqli_error($connection);
 		}
+	
+		$count = mysqli_num_rows($retval);
+		if($count == 1) {
+			$user_id = 0;
+			while($row = mysqli_fetch_assoc($retval)) {
+				$user_id = $row["id"];
+			}
+			$_SESSION['user_id'] = $user_id;
+			echo 'session saved';
+			// Redirect to Home page
+			header("location: http://localhost/taskboard");
+		}
+	}
 }
 
 ?>
@@ -46,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-user"></i></span>
-					<input type="text" class="form-control" name="username" placeholder="Username" required="required">				
+					<input type="text" class="form-control" name="email" placeholder="Username" required="required">				
 				</div>
 			</div>
 			<div class="form-group">

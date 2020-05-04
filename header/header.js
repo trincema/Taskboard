@@ -4,7 +4,7 @@
 */
 function login() {
     var root = window.top.location.href.split('taskboard')[0];
-    window.top.location.replace(root + '/taskboard/header/login.php');
+    window.top.location.replace(root + 'taskboard/header/login.php');
 }
 
 /**
@@ -13,5 +13,10 @@ function login() {
 */
 function register() {
     var root = window.location.href.split('taskboard')[0];
-    window.top.location.replace(root + '/taskboard/header/register.php');
+    window.top.location.replace(root + 'taskboard/header/register.php');
+}
+
+function logout() {
+    var root = window.location.href.split('taskboard')[0];
+    window.top.location.replace(root + 'taskboard/header/logout.php');
 }
