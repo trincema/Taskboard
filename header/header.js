@@ -3,9 +3,8 @@
  * The browser will be redirected to the login.php page.
 */
 function login() {
-    var root = window.location.href.split('taskboard')[0];
-    window.location.replace(root + 'taskboard/header/login.php');
-    console.log(root);
+    var root = window.top.location.href.split('taskboard')[0];
+    window.top.location.replace(root + '/taskboard/header/login.php');
 }
 
 /**
@@ -14,5 +13,5 @@ function login() {
 */
 function register() {
     var root = window.location.href.split('taskboard')[0];
-    window.location.replace(root + 'taskboard/header/register.php');
+    window.top.location.replace(root + '/taskboard/header/register.php');
 }
