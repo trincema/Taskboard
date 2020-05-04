@@ -1,74 +1,75 @@
 <?php
 	include "../db_connection.php";
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-	$first_name=$_POST['First_Name'];
-	$last_name=$_POST['Last_Name'];
-	$password=$_POST['Password'];
-	$email= $_POST['Email'];
-	$skill='Java';
-	$skill_level='Level 5';
-	$work_hours='6h';
+	if($_SERVER["REQUEST_METHOD"] == "POST") {
+		session_start();
+		$first_name=$_POST['First_Name'];
+		$last_name=$_POST['Last_Name'];
+		$password=$_POST['Password'];
+		$email= $_POST['Email'];
+		$skill='Java';
+		$skill_level='Level 5';
+		$work_hours='6h';
 
-	$skill_id = 0;
-	$skill_level_id = 0;
-	$work_hours_id = 0;
+		$skill_id = 0;
+		$skill_level_id = 0;
+		$work_hours_id = 0;
 
-	$connection = mysqli_connect($db_hostname, $db_username, $db_password);
-	if(!$connection) {
-		echo"Database Connection Error...".mysqli_connect_error();
-	}
-	else{
-		$sql="SELECT * FROM Taskboard.Skills WHERE skill='$skill'";
-		$retval = mysqli_query( $connection, $sql );
-		if(! $retval ) {
-			echo"Error access in table Skills".mysqli_error($connection);
-		}
-         if (mysqli_num_rows($retval) == 1) {
-            while($row = mysqli_fetch_assoc($retval)) {
-			   $skill_id=$row["id"];
-            }
-		 }
-		 $sql="SELECT * FROM Taskboard.SkillLevel WHERE skill_level='$skill_level'";
-		$retval = mysqli_query( $connection, $sql );
-		if(! $retval ) {
-			echo"Error access in table SkillLevel".mysqli_error($connection);
-		}
-         if (mysqli_num_rows($retval) == 1) {
-            while($row = mysqli_fetch_assoc($retval)) {
-			   $skill_level_id=$row["id"];
-            }
-		 }
-		 $sql="SELECT * FROM Taskboard.WorkingHours WHERE hour='$work_hours'";
-		$retval = mysqli_query( $connection, $sql );
-		if(! $retval ) {
-			echo"Error access in table WorkingHours".mysqli_error($connection);
-		}
-         if (mysqli_num_rows($retval) == 1) {
-            while($row = mysqli_fetch_assoc($retval)) {
-			   $work_hours_id=$row["id"];
-            }
-         }
-	
-		$sql= "SELECT * FROM Taskboard.TeamMembers WHERE email= '$email'";
-		$retval= mysqli_query($connection, $sql);
-		if(! $retval ) {
-			echo"Error access in table TeamMembers".mysqli_error($connection);
-		}
-		if (mysqli_num_rows($retval) == 0) {
-            $sql= "INSERT INTO Taskboard.TeamMembers (first_name,last_name,email,password,skill,skill_level,work_hours) ".
-			"VALUES ('$first_name','$last_name','$email','$password',$skill_id,$skill_level_id,$work_hours_id)";
+		$connection = mysqli_connect($db_hostname, $db_username, $db_password);
+		if(!$connection) {
+			echo"Database Connection Error...".mysqli_connect_error();
+		} else {
+			$sql="SELECT * FROM Taskboard.Skills WHERE skill='$skill'";
+			$retval = mysqli_query( $connection, $sql );
+			if(! $retval ) {
+				echo"Error access in table Skills".mysqli_error($connection);
+			}
+			if (mysqli_num_rows($retval) == 1) {
+				while($row = mysqli_fetch_assoc($retval)) {
+					$skill_id=$row["id"];
+				}
+			}
+			$sql="SELECT * FROM Taskboard.SkillLevel WHERE skill_level='$skill_level'";
+			$retval = mysqli_query( $connection, $sql );
+			if(! $retval ) {
+				echo"Error access in table SkillLevel".mysqli_error($connection);
+			}
+			if (mysqli_num_rows($retval) == 1) {
+				while($row = mysqli_fetch_assoc($retval)) {
+					$skill_level_id=$row["id"];
+				}
+			}
+			$sql="SELECT * FROM Taskboard.WorkingHours WHERE hour='$work_hours'";
+			$retval = mysqli_query( $connection, $sql );
+			if(! $retval ) {
+				echo"Error access in table WorkingHours".mysqli_error($connection);
+			}
+			if (mysqli_num_rows($retval) == 1) {
+				while($row = mysqli_fetch_assoc($retval)) {
+					$work_hours_id=$row["id"];
+				}
+			}
+		
+			$sql= "SELECT * FROM Taskboard.TeamMembers WHERE email= '$email'";
 			$retval= mysqli_query($connection, $sql);
 			if(! $retval ) {
 				echo"Error access in table TeamMembers".mysqli_error($connection);
+			}
+			if (mysqli_num_rows($retval) == 0) {
+				$sql= "INSERT INTO Taskboard.TeamMembers (first_name,last_name,email,password,skill,skill_level,work_hours) ".
+				"VALUES ('$first_name','$last_name','$email','$password',$skill_id,$skill_level_id,$work_hours_id)";
+				$retval= mysqli_query($connection, $sql);
+				if(!$retval ) {
+					echo"Error access in table TeamMembers".mysqli_error($connection);
+				} else {
+					// Redirect to Login page
+					header("location: http://localhost/taskboard/header/login.php");
+				}
+			} else {
+				echo"User already exists";
+			}
 		}
-            
-		 }
-		
-
+		mysqli_close($connection);
 	}
-	mysqli_close($connection);
-}
-		
 ?>
 <!doctype html>
 <html lang="en">
@@ -101,13 +102,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-user"></i></span>
 					<input type="text" class="form-control" name="Last_Name" placeholder="Last Name" required="required">
-				</div>
-			</div>
-			<!-- Username -->
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-user"></i></span>
-					<input type="text" class="form-control" name="Username" placeholder="Username" required="required">
 				</div>
 			</div>
 			<!-- Email address -->
@@ -201,7 +195,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				</div>
 			</div>
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary login-btn btn-block">Sign in</button>
+				<button type="submit" class="btn btn-primary login-btn btn-block">Sign Up</button>
 			</div>
 		</form>
 		<p class="text-center text-muted small">Already have an account? <a href="http://localhost/Taskboard/header/login.php">Sign in here!</a></p>
