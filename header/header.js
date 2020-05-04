@@ -4,7 +4,8 @@
 */
 function login() {
     var root = window.location.href.split('taskboard')[0];
-    parent.location.replace(root + 'taskboard/header/login.php');
+    window.location.replace(root + 'taskboard/header/login.php');
+    console.log(root);
 }
 
 /**
@@ -13,5 +14,5 @@ function login() {
 */
 function register() {
     var root = window.location.href.split('taskboard')[0];
-    parent.location.replace(root + 'taskboard/header/register.php');
+    window.location.replace(root + 'taskboard/header/register.php');
 }
