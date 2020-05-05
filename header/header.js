@@ -18,5 +18,5 @@ function register() {
 
 function logout() {
     var root = window.location.href.split('taskboard')[0];
-    window.top.location.replace(root + 'taskboard/header/logout.php');
+    window.top.location.replace('http://localhost/taskboard/header/logout.php');
 }
