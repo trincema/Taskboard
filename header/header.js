@@ -3,8 +3,7 @@
  * The browser will be redirected to the login.php page.
 */
 function login() {
-    var root = window.top.location.href.split('taskboard')[0];
-    window.top.location.replace(root + 'taskboard/header/login.php');
+    window.top.location.replace('http://localhost/taskboard/header/login.php');
 }
 
 /**
@@ -12,11 +11,13 @@ function login() {
  * The browser will be redirected to the register.php page.
 */
 function register() {
-    var root = window.location.href.split('taskboard')[0];
-    window.top.location.replace(root + 'taskboard/header/register.php');
+    window.top.location.replace('http://localhost/taskboard/header/register.php');
 }
 
+/**
+ * Function called when 'Logout' button is pressed.
+ * The browser will be redirected to the logout.php page.
+*/
 function logout() {
-    var root = window.location.href.split('taskboard')[0];
     window.top.location.replace('http://localhost/taskboard/header/logout.php');
 }

@@ -26,8 +26,31 @@
 		<!-- Collection of nav links, forms, and other content for toggling -->
 		<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
 			<ul class="nav navbar-nav navbar-right ml-auto">
-				<li><a href="" class="dropdown-item" onclick="login()"><i class="fa fa-sign-in"></i> Sign In</a></li>
-				<li><a href="" class="dropdown-item" onclick="register()"><i class="fa fa-user-plus"></i> Sign Up</a></li>
+				<li class="nav-item">
+					<a href="" class="nav-link dropdown-toggle user-action">
+						<img src="http://localhost/taskboard/User.png" class="avatar" alt="Avatar">
+						<?php
+							// Get logged user from database
+							include "../db_connection.php";
+							session_start();
+							if (isset($_SESSION['user_id'])) {
+								$connection = mysqli_connect($db_hostname, $db_username, $db_password);
+								$userId = $_SESSION['user_id'];
+								$sql = "SELECT * FROM Taskboard.TeamMembers WHERE id = '$userId'";
+								$retval = mysqli_query( $connection, $sql );
+								if(! $retval ) {
+									echo"Error accessing table TeamMembers: ".mysqli_error($connection);
+								}
+								while($row = mysqli_fetch_assoc($retval)) {
+									$firstName = $row["first_name"];
+									$lastName = $row["last_name"];
+									echo "<span>$firstName $lastName</span>";
+								}
+								mysqli_close($connection);
+							}
+						?>
+					</a>
+				</li>
 				<li><a href="" class="dropdown-item" onclick="logout()"><i class="fa fa-power-off"></i> Logout</a></li>
 			</ul>
 		</div>
