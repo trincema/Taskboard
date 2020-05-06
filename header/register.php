@@ -2,13 +2,13 @@
 	include "../db_connection.php";
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		session_start();
-		$first_name=$_POST['First_Name'];
-		$last_name=$_POST['Last_Name'];
-		$password=$_POST['Password'];
+		$first_name = $_POST['First_Name'];
+		$last_name = $_POST['Last_Name'];
+		$password = $_POST['Password'];
 		$email= $_POST['Email'];
-		$skill='Java';
-		$skill_level='Level 5';
-		$work_hours='6h';
+		$skill = $_POST['Skill'];
+		$skill_level = $_POST['SkillLevel'];
+		$work_hours = $_POST['WorkingHours'];
 
 		$skill_id = 0;
 		$skill_level_id = 0;
@@ -93,28 +93,36 @@
 			<!-- First name -->
 			<div class="form-group">
 				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon">
+						<span style="display: inline-block; width:2em;"><i class="fa fa-user"></i></span>
+					</span>
 					<input type="text" class="form-control" name="First_Name" placeholder="First Name" required="required">
 				</div>
 			</div>
 			<!-- Last name -->
 			<div class="form-group">
 				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon">
+						<span style="display: inline-block; width:2em;"><i class="fa fa-user"></i></span>
+					</span>
 					<input type="text" class="form-control" name="Last_Name" placeholder="Last Name" required="required">
 				</div>
 			</div>
 			<!-- Email address -->
 			<div class="form-group">
 				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+					<span class="input-group-addon">
+						<span style="display: inline-block; width:2em;"><i class="fa fa-envelope"></i></span>
+					</span>
 					<input type="text" class="form-control" name="Email" placeholder="Email" required="required">
 				</div>
 			</div>
 			<!-- Password -->
 			<div class="form-group">
 				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+					<span class="input-group-addon">
+						<span style="display: inline-block; width:2em;"><i class="fa fa-lock"></i></span>
+					</span>
 					<input type="password" class="form-control" name="Password" placeholder="Password" required="required">
 				</div>
 			</div>
@@ -122,7 +130,7 @@
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon">
-						<i class="fa fa-lock"></i>
+						<span style="display: inline-block; width:2em;"><i class="fa fa-lock"></i></span>
 					</span>
 					<input type="password" class="form-control" name="Confirm_Password" placeholder="Confirm Password" required="required">
 				</div>
@@ -131,67 +139,46 @@
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon">
-						<i class="fa fa-lock"></i>
+						<span style="display: inline-block; width: 8em; text-align: left;"> <i class="fa fa-cogs"></i> Skill</span>
 					</span>
-					<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" style="width: 100%;" type="button" id="dropdownMenu1"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						<span id="skill">C</span>
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						<li><a onclick="onSkillChanged('C');">C</a></li>
-						<li><a onclick="onSkillChanged('C++');">C++</a></li>
-						<li><a onclick="onSkillChanged('Java');">Java</a></li>
-					</ul>
-					</div>
+					<select class="form-control" name="Skill">
+						<option>C</option>
+						<option>C++</option>
+						<option>Java</option>
+					</select>
 				</div>
 			</div>
 			<!-- Nivel Skill -->
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon">
-						<i class="fa fa-lock"></i>
+						<span style="display: inline-block; width: 8em; text-align: left;"> <i class="fa fa-cogs"></i> Skill Level</span>
 					</span>
-					<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" style="width: 100%;" type="button" id="dropdownMenu2"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						<span id="skill_level">Level 1</span>
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-						<li><a onclick="onSkillLevelChanged(1);">Level 1</a></li>
-						<li><a onclick="onSkillLevelChanged(2);">Level 2</a></li>
-						<li><a onclick="onSkillLevelChanged(3);">Level 3</a></li>
-						<li><a onclick="onSkillLevelChanged(4);">Level 4</a></li>
-						<li><a onclick="onSkillLevelChanged(5);">Level 5</a></li>
-						<li><a onclick="onSkillLevelChanged(6);">Level 6</a></li>
-						<li><a onclick="onSkillLevelChanged(7);">Level 7</a></li>
-						<li><a onclick="onSkillLevelChanged(8);">Level 8</a></li>
-						<li><a onclick="onSkillLevelChanged(9);">Level 9</a></li>
-						<li><a onclick="onSkillLevelChanged(10);">Level 10</a></li>
-					</ul>
-					</div>
+					<select class="form-control" name="SkillLevel">
+						<option>Level 1</option>
+						<option>Level 2</option>
+						<option>Level 3</option>
+						<option>Level 4</option>
+						<option>Level 5</option>
+						<option>Level 6</option>
+						<option>Level 7</option>
+						<option>Level 8</option>
+						<option>Level 9</option>
+						<option>Level 10</option>
+					</select>
 				</div>
 			</div>
 			<!-- Working Hours -->
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon">
-						<i class="fa fa-lock"></i>
+						<span style="display: inline-block; width: 8em; text-align: left;"> <i class="fa fa-clock-o"></i> Working Hours</span>
 					</span>
-					<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" style="width: 100%;" type="button" id="dropdownMenu3"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						<span id="working_hours">8h/day</span>
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
-						<li><a onclick="onWorkingHoursChanged(4);">4h/day</a></li>
-						<li><a onclick="onWorkingHoursChanged(6);">6h/day</a></li>
-						<li><a onclick="onWorkingHoursChanged(8);">8h/day</a></li>
-					</ul>
-					</div>
+					<select class="form-control" name="WorkingHours">
+						<option>4h</option>
+						<option>6h</option>
+						<option>8h</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">

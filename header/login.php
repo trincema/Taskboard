@@ -47,18 +47,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 </head>
 <body>
-	<div class="login-form">
+	<div class="login-form" novalidate>
 		<form method="post" action="">
 		<h2 class="text-center">Sign in</h2>   
 			<div class="form-group">
 				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon">
+						<span style="display: inline-block; width:2em;"><i class="fa fa-user"></i></span>
+					</span>
 					<input type="text" class="form-control" name="email" placeholder="Username" required="required">				
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+					<span class="input-group-addon">
+						<span style="display: inline-block; width:2em;"><i class="fa fa-lock"></i></span>
+					</span>
 					<input type="password" class="form-control" name="password" placeholder="Password" required="required">				
 				</div>
 			</div>        
