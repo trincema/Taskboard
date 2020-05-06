@@ -22,10 +22,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				$user_id = $row["id"];
 			}
 			$_SESSION['user_id'] = $user_id;
-			echo 'session saved';
+			mysqli_close($connection);
 			// Redirect to Home page
 			header("location: http://localhost/taskboard");
 		}
+		mysqli_close($connection);
 	}
 }
 
