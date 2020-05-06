@@ -152,7 +152,7 @@
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon">
-						<span style="display: inline-block; width: 8em; text-align: left;"> <i class="fa fa-cogs"></i> Skill Level</span>
+						<span style="display: inline-block; width: 8em; text-align: left;"> <i class="fa fa-arrow-up"></i> Skill Level</span>
 					</span>
 					<select class="form-control" name="SkillLevel">
 						<option>Level 1</option>
