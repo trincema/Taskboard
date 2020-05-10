@@ -1,3 +1,64 @@
+<?php
+include "../db_connection.php";
+$add_task_err = "";
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+	session_start();
+	$task_name = $_POST['TaskName'];
+	$skill = $_POST['Skill'];
+	$skill_level = $_POST['SkillLevel'];
+	$duration = $_POST['Duration'];
+	$assigned_to = $_POST['AssignedTo'];
+	$status = $_POST['Status'];
+
+	$skill_id = 0;
+	$level_id = 0;
+	$status_id = 0;
+
+	$connection = mysqli_connect($db_hostname, $db_username, $db_password);
+	if(!$connection) {
+		echo"Database Connection Error...".mysqli_connect_error();
+	} else {
+		$sql="SELECT * FROM $database.Skills WHERE skill='$skill'";
+		$retval = mysqli_query( $connection, $sql );
+		if(! $retval ) {
+			echo "Error access in table Skills".mysqli_error($connection);
+		}
+		if (mysqli_num_rows($retval) == 1) {
+			while($row = mysqli_fetch_assoc($retval)) {
+				$skill_id = $row["id"];
+			}
+		}
+		$sql="SELECT * FROM $database.SkillLevel WHERE skill_level='$skill_level'";
+		$retval = mysqli_query( $connection, $sql );
+		if(! $retval ) {
+			echo "Error access in table SkillLevel".mysqli_error($connection);
+		}
+		if (mysqli_num_rows($retval) == 1) {
+			while($row = mysqli_fetch_assoc($retval)) {
+				$level_id = $row["id"];
+			}
+		}
+		$sql="SELECT * FROM $database.TaskStatus WHERE task_status='$status'";
+		$retval = mysqli_query( $connection, $sql );
+		if(! $retval ) {
+			echo "Error access in table TaskStatus".mysqli_error($connection);
+		}
+		if (mysqli_num_rows($retval) == 1) {
+			while($row = mysqli_fetch_assoc($retval)) {
+				$status_id = $row["id"];
+			}
+		}
+
+		$sql = "INSERT INTO Taskboard.Tasks(task_name,skill_required,level_required,duration,task_status,assigned_member) ".
+				"VALUES('$task_name',$skill_id,$level_id,$duration,$status_id,1)";
+		$retval = mysqli_query( $connection, $sql );
+		if(! $retval ) {
+			echo"Error access in table TeamMembers".mysqli_error($connection);
+		}
+		mysqli_close($connection);
+	}
+}
+?>
 <html>
 <head>
 	<meta charset="utf-8"/>
@@ -7,10 +68,8 @@
 	<script type="text/javascript" src="taskuri.js"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="container" style="padding: 0;">
@@ -38,7 +97,6 @@
                 </thead>
                 <tbody>
 				<?php
-					include "../db_connection.php";
 					$connection = mysqli_connect($db_hostname, $db_username, $db_password);
 					if(!$connection) {
 						echo"Database Connection Error...".mysqli_connect_error();
@@ -115,30 +173,25 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="AddTaskLabel">Modal title</h5>
+        <h5 class="modal-title" id="AddTaskLabel" style="font-size: 20px;">Add Task Dialog</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
 	  <form method="post" class="needs-validation" action="" novalidate>
-		<h2 class="text-center">Sign in</h2>   
 			<div class="form-group">
 				<div class="input-group">
-					<input type="text" class="form-control" name="TaskName" placeholder="Taks name"
-						 required>
-					<div class="valid-feedback">
-        				Looks good!
-      				</div>
-					<div class="invalid-feedback">
-        				Please enter a proper email address!
-      				</div>
+					<span class="input-group-addon">
+						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-list"></i> Task name</span>
+					</span>
+					<input type="text" class="form-control" name="TaskName" placeholder="Task name" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon">
-						<span style="display: inline-block; width: 8em; text-align: left;"> <i class="fa fa-cogs"></i> Skill</span>
+						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-cogs"></i> Skill</span>
 					</span>
 					<select class="form-control" name="Skill">
 						<option>C</option>
@@ -150,7 +203,7 @@
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon">
-						<span style="display: inline-block; width: 8em; text-align: left;"> <i class="fa fa-arrow-up"></i> Skill Level</span>
+						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-arrow-up"></i> Skill Level</span>
 					</span>
 					<select class="form-control" name="SkillLevel">
 						<option>Level 1</option>
@@ -168,27 +221,22 @@
 			</div>
 			<div class="form-group">
 				<div class="input-group">
-					<input type="text" class="form-control" name="TaskName" placeholder="Taks name"
-						 required>
-					<div class="valid-feedback">
-        				Looks good!
-      				</div>
-					<div class="invalid-feedback">
-        				Please enter a proper email address!
-      				</div>
+					<span class="input-group-addon">
+						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-clock-o"></i> Duration</span>
+					</span>
+					<input type="number" class="form-control" name="Duration" placeholder="Duration" min="0" max="1000" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon">
-						<span style="display: inline-block; width: 8em; text-align: left;"> <i class="fa fa-arrow-up"></i> Assigned To</span>
+						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-user"></i> Assigned To</span>
 					</span>
 					<select class="form-control" name="AssignedTo">
 						<?php
-							include "../db_connection.php";
 							$connection = mysqli_connect($db_hostname, $db_username, $db_password);
 							if(!$connection) {
-								echo"Database Connection Error...".mysqli_connect_error();
+								echo "Database Connection Error...".mysqli_connect_error();
 							} else {
 								$sql="SELECT * FROM $database.TeamMembers";
 								$retval = mysqli_query( $connection, $sql );
@@ -206,9 +254,9 @@
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon">
-						<span style="display: inline-block; width: 8em; text-align: left;"> <i class="fa fa-arrow-up"></i> Skill Level</span>
+						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-check"></i> Status</span>
 					</span>
-					<select class="form-control" name="SkillLevel">
+					<select class="form-control" name="Status">
 						<option>Todo</option>
 						<option>In progress</option>
 						<option>Done</option>
@@ -216,16 +264,16 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary login-btn btn-block">Add Task</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-success">Add Task</button>
 			</div>
 		</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
