@@ -29,7 +29,7 @@
 					</li>
 					<li class="list-group-item list-group-item-action">
 						<div class="d-flex w-100 justify-content-between">
-							<h5 class="mb-1">Popescu Ion</h5>
+							<h5 class="mb-1">Popa Ioana</h5>
 							<small><i>8h/day</i></small>
 						</div>
 						<small><i><b>Skill:</b> Java</i></small>
@@ -37,7 +37,7 @@
 					</li>
 					<li class="list-group-item list-group-item-action">
 						<div class="d-flex w-100 justify-content-between">
-							<h5 class="mb-1">Popescu Ion</h5>
+							<h5 class="mb-1">Andrescu Andrei</h5>
 							<small><i>8h/day</i></small>
 						</div>
 						<small><i><b>Skill:</b> Java</i></small>
