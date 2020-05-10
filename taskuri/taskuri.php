@@ -65,7 +65,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="taskuri.css">
-	<script type="text/javascript" src="taskuri.js"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -92,7 +91,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 						<th style="width: 5em;">Duration</th>
 						<th style="width: 10em;">Assigned to</th>
 						<th style="width: 6em;">Status</th>
-                        <th style="width: 5em;">Actions</th>
+                        <th style="width: 6em;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -151,10 +150,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 								"<td>$skill_level</td>".
 								"<td>$duration</td>".
 								"<td>$first_name $last_name</td>".
-								"<td><span class=\"label label-$label\">$task_status</span></td>".
+								"<td><span class=\"badge badge-$label\">$task_status</span></td>".
 								"<td>".
-								"<a class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\"><i class=\"material-icons\">&#xE254;</i></a>".
-								"<a class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\"><i class=\"material-icons\">&#xE872;</i></a>".
+								"<a class=\"edit\" title=\"Edit\" data-toggle=\"modal\" data-target=\"#EditTask\"><i class=\"material-icons\">&#xE254;</i></a>".
+								"<a class=\"delete\" title=\"Delete\" data-toggle=\"modal\" data-target=\"#DeleteTask\" data-task-id=\"$id\" data-task-name=\"$task_name\"><i class=\"material-icons\">&#xE872;</i></a>".
 								"</td>".
 								"</tr>" ;
 						}
@@ -179,7 +178,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         </button>
       </div>
       <div class="modal-body">
-	  <form method="post" class="needs-validation" action="" novalidate>
+	  <form method="post" class="TaskForm" action="add_task.php" novalidate>
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon">
@@ -271,9 +270,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
     </div>
   </div>
-</div>
+  </div>
+  	
+	<!-- Delete Task Modal -->
+	<div class="modal fade" id="DeleteTask" tabindex="-1" role="dialog" aria-labelledby="DeleteTaskLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="DeleteTaskLabel" style="font-size: 20px;">Delete Task Dialog</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="post" class="TaskForm" action="delete_task.php" novalidate>
+						<span id="task-name"></span>
+						<input style="visibility: hidden;"type="number" name="TaskId" id="TaskIdInput">
+						<div class="form-group">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-success">Yes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="taskuri.js"></script>
 </body>
 </html>
