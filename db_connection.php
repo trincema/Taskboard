@@ -28,12 +28,20 @@
 			if(! $retval ) {
 				echo"Could not create table Skills".mysqli_error($connection);
 			} else {
-				$sql = "INSERT INTO $database.Skills (skill) VALUES ('C')";
-				mysqli_query( $connection, $sql );
-				$sql = "INSERT INTO $database.Skills (skill) VALUES ('C++')";
-				mysqli_query( $connection, $sql );
-				$sql = "INSERT INTO $database.Skills (skill) VALUES ('Java')";
-				mysqli_query( $connection, $sql );
+				$sql = "SELECT * FROM $database.Skills";
+				$retval = mysqli_query( $connection, $sql );
+				if(! $retval ) {
+					echo "".mysqli_connect_error();
+				}
+				$count = mysqli_num_rows($retval);
+				if($count == 0) {
+					$sql = "INSERT INTO $database.Skills (skill) VALUES ('C')";
+					mysqli_query( $connection, $sql );
+					$sql = "INSERT INTO $database.Skills (skill) VALUES ('C++')";
+					mysqli_query( $connection, $sql );
+					$sql = "INSERT INTO $database.Skills (skill) VALUES ('Java')";
+					mysqli_query( $connection, $sql );
+				}
 			}
 
 			$sql = "CREATE Table IF NOT EXISTS $database.WorkingHours (".
@@ -43,12 +51,20 @@
 			if(! $retval ) {
 				echo"Could not create table WorkingHours".mysqli_error($connection);
 			} else {
-				$sql = "INSERT INTO $database.WorkingHours (hour) VALUES ('4h')";
-				mysqli_query( $connection, $sql );
-				$sql = "INSERT INTO $database.WorkingHours (hour) VALUES ('6h')";
-				mysqli_query( $connection, $sql );
-				$sql = "INSERT INTO $database.WorkingHours (hour) VALUES ('8h')";
-				mysqli_query( $connection, $sql );
+				$sql = "SELECT * FROM $database.WorkingHours";
+				$retval = mysqli_query( $connection, $sql );
+				if(! $retval ) {
+					echo "".mysqli_connect_error();
+				}
+				$count = mysqli_num_rows($retval);
+				if($count == 0) {
+					$sql = "INSERT INTO $database.WorkingHours (hour) VALUES ('4h/day')";
+					mysqli_query( $connection, $sql );
+					$sql = "INSERT INTO $database.WorkingHours (hour) VALUES ('6h/day')";
+					mysqli_query( $connection, $sql );
+					$sql = "INSERT INTO $database.WorkingHours (hour) VALUES ('8h/day')";
+					mysqli_query( $connection, $sql );
+				}
 			}
 
 			$sql = "CREATE Table IF NOT EXISTS $database.TaskStatus (".
@@ -58,12 +74,20 @@
 			if(! $retval ) {
 				echo"Could not create table TaskStatus".mysqli_error($connection);
 			} else {
-				$sql = "INSERT INTO $database.TaskStatus (task_status) VALUES ('Todo')";
-				mysqli_query( $connection, $sql );
-				$sql = "INSERT INTO $database.TaskStatus (task_status) VALUES ('In progress')";
-				mysqli_query( $connection, $sql );
-				$sql = "INSERT INTO $database.TaskStatus (task_status) VALUES ('Done')";
-				mysqli_query( $connection, $sql );
+				$sql = "SELECT * FROM $database.TaskStatus";
+				$retval = mysqli_query( $connection, $sql );
+				if(! $retval ) {
+					echo "".mysqli_connect_error();
+				}
+				$count = mysqli_num_rows($retval);
+				if($count == 0) {
+					$sql = "INSERT INTO $database.TaskStatus (task_status) VALUES ('Todo')";
+					mysqli_query( $connection, $sql );
+					$sql = "INSERT INTO $database.TaskStatus (task_status) VALUES ('In progress')";
+					mysqli_query( $connection, $sql );
+					$sql = "INSERT INTO $database.TaskStatus (task_status) VALUES ('Done')";
+					mysqli_query( $connection, $sql );
+				}
 			}
 
 			$sql = "CREATE Table IF NOT EXISTS $database.SkillLevel (".
@@ -73,9 +97,17 @@
 			if(! $retval ) {
 				echo"Could not create table SkillLevel".mysqli_error($connection);
 			} else {
-				for ($x = 1; $x <= 10; $x++) {
-					$sql = "INSERT INTO $database.SkillLevel (skill_level) VALUES ('Level $x')";
-					mysqli_query( $connection, $sql );
+				$sql = "SELECT * FROM $database.SkillLevel";
+				$retval = mysqli_query( $connection, $sql );
+				if(! $retval ) {
+					echo "".mysqli_connect_error();
+				}
+				$count = mysqli_num_rows($retval);
+				if($count == 0) {
+					for ($x = 1; $x <= 10; $x++) {
+						$sql = "INSERT INTO $database.SkillLevel (skill_level) VALUES ('Level $x')";
+						mysqli_query( $connection, $sql );
+					}
 				}
 			}
 
