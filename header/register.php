@@ -175,9 +175,9 @@
 						<span style="display: inline-block; width: 8em; text-align: left;"> <i class="fa fa-clock-o"></i> Working Hours</span>
 					</span>
 					<select class="form-control" name="WorkingHours">
-						<option>4h</option>
-						<option>6h</option>
-						<option>8h</option>
+						<option>4h/day</option>
+						<option>6h/day</option>
+						<option>8h/day</option>
 					</select>
 				</div>
 			</div>
