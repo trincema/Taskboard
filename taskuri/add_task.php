@@ -46,10 +46,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			while($row = mysqli_fetch_assoc($retval)) {
 				$status_id = $row["id"];
 			}
+        }
+        
+        $pieces = explode(" ", $assigned_to);
+		$first_name = $pieces[0];
+		$last_name = $pieces[1];
+		$sql = "SELECT * FROM $database.TeamMembers WHERE first_name='$first_name' AND last_name='$last_name'";
+		$retval = mysqli_query( $connection, $sql );
+		if(! $retval ) {
+			echo "Error access in table TeamMembers".mysqli_error($connection);
+		}
+		if (mysqli_num_rows($retval) == 1) {
+			while($row = mysqli_fetch_assoc($retval)) {
+				$user_id = $row["id"];
+			}
 		}
 
 		$sql = "INSERT INTO Taskboard.Tasks(task_name,skill_required,level_required,duration,task_status,assigned_member) ".
-				"VALUES('$task_name',$skill_id,$level_id,$duration,$status_id,1)";
+				"VALUES('$task_name',$skill_id,$level_id,$duration,$status_id,$user_id)";
 		$retval = mysqli_query( $connection, $sql );
 		if(! $retval ) {
 			echo"Error access in table TeamMembers".mysqli_error($connection);

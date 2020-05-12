@@ -5,9 +5,7 @@
 		session_start();
 		include 'db_connection.php';
 		initializeDatabase();
-		if (isset($_SESSION['user_id'])) {
-			
-		} else {
+		if (!isset($_SESSION['user_id'])) {
 			header("location: http://localhost/taskboard/header/login.php");
 		}
 	?>
