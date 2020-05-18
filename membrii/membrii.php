@@ -34,10 +34,10 @@
 							if (isset($_SESSION['user_id'])) {
 								$connection = mysqli_connect($db_hostname, $db_username, $db_password);
 								$userId = $_SESSION['user_id'];
-								$sql = "SELECT * FROM Taskboard.TeamMembers WHERE id = '$userId'";
+								$sql = "SELECT * FROM $database.TeamMembers WHERE id = '$userId'";
 								$retval = mysqli_query( $connection, $sql );
 								if(! $retval ) {
-									echo"Error accessing table TeamMembers: ".mysqli_error($connection);
+									echo "Error accessing table TeamMembers0: ".mysqli_error($connection);
 								}
 								while($row = mysqli_fetch_assoc($retval)) {
 									$firstName = $row["first_name"];
@@ -67,6 +67,7 @@
 							} else {
 								$sql="SELECT * FROM $database.TeamMembers";
 								$retval = mysqli_query( $connection, $sql );
+								$users = [];
 								while($row = mysqli_fetch_assoc($retval)) {
 									$first_name = $row["first_name"];
 									$last_name = $row["last_name"];
@@ -97,21 +98,11 @@
 
 									$hours_short = str_replace("/day", "", $hours);
 
-									/*
-									echo "<li class=\"list-group-item list-group-item-action\">".
-											"<div class=\"d-flex w-100 justify-content-between\">".
-												"<h5 class=\"mb-1\">$first_name $last_name</h5>".
-												"<small><i>$hours</i></small>".
-											"</div>".
-											"<small><i><b>Skill:</b> $skill</i></small>".
-											"<small class=\"text-muted\"> <i>($skill_level)</i></small>".
-										"</li>";
-									*/
 									echo <<<EXCERPT
 											<li class="sidebar-dropdown">
 												<a href="#">
 													<i class="fa fa-tachometer-alt"></i>
-													<span>$firstName $lastName</span>
+													<span>$first_name $last_name</span>
 													<span class="badge badge-pill badge-warning">$hours_short</span>
 												</a>
 												<div class="sidebar-submenu">

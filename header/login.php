@@ -6,17 +6,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	$username = $_POST['email'];
 	$password = $_POST['password'];
 
-	$sql = "SELECT id FROM Taskboard.TeamMembers WHERE email = '$username' and password = '$password'";
+	$sql = "SELECT * FROM $database.TeamMembers WHERE email = '$username' and password = '$password'";
 	$connection = mysqli_connect($db_hostname, $db_username, $db_password);
 	if(!$connection) {
 		echo "Database Connection Error...".mysqli_connect_error();
 	} else {
 		$retval = mysqli_query( $connection, $sql );
 		if(! $retval ) {
-			echo "Error access in table TeamMembers".mysqli_error($connection);
+			echo "Error access in table TeamMembers1: ".mysqli_error($connection);
 		}
-	
 		$count = mysqli_num_rows($retval);
+		echo "count: $count";
 		if($count == 1) {
 			$user_id = 0;
 			while($row = mysqli_fetch_assoc($retval)) {
@@ -29,7 +29,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		} else {
 			$login_err = "The username or password is not correct!";
 		}
-		mysqli_close($connection);
+		if (!$connection)
+			mysqli_close($connection);
 	}
 }
 ?>

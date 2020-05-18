@@ -53,14 +53,14 @@
 			$sql= "SELECT * FROM Taskboard.TeamMembers WHERE email= '$email'";
 			$retval= mysqli_query($connection, $sql);
 			if(! $retval ) {
-				echo"Error access in table TeamMembers".mysqli_error($connection);
+				echo"Error access in table TeamMembers2: ".mysqli_error($connection);
 			}
 			if (mysqli_num_rows($retval) == 0) {
 				$sql= "INSERT INTO Taskboard.TeamMembers (first_name,last_name,email,password,skill,skill_level,work_hours) ".
 				"VALUES ('$first_name','$last_name','$email','$password',$skill_id,$skill_level_id,$work_hours_id)";
 				$retval= mysqli_query($connection, $sql);
 				if(!$retval ) {
-					echo"Error access in table TeamMembers".mysqli_error($connection);
+					echo "Error access in table TeamMembers: ".mysqli_error($connection);
 				} else {
 					// Redirect to Login page
 					header("location: http://localhost/taskboard/header/login.php");

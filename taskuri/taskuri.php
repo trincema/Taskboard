@@ -24,10 +24,11 @@
                 <thead>
                     <tr>
 						<th style="width: 3em;">#</th>
-                        <th style="width: 15em;">Task Name</th>
-                        <th style="width: 8em;">Required Skill</th>
-						<th style="width: 9em;">Required Level</th>
+                        <th style="width: 10em;">Task Name</th>
+                        <th style="width: 4em;">Skill</th>
+						<th style="width: 5em;">Level</th>
 						<th style="width: 5em;">Duration</th>
+						<th style="width: 10em;">Progress</th>
 						<th style="width: 10em;">Assigned to</th>
 						<th style="width: 6em;">Status</th>
                         <th style="width: 6em;">Actions</th>
@@ -36,6 +37,8 @@
                 <tbody>
 				<?php
 					include "../db_connection.php";
+					include "add_task.php";
+					include "edit_task.php";
 					$connection = mysqli_connect($db_hostname, $db_username, $db_password);
 					if(!$connection) {
 						echo"Database Connection Error...".mysqli_connect_error();
@@ -89,6 +92,13 @@
 								"<td>$skill</td>".
 								"<td>$skill_level</td>".
 								"<td>$duration</td>".
+								"<td>".
+									"<div class=\"progress\" style=\"height: 10px;\">".
+										"<div class=\"progress-bar progress-bar-striped progress-bar-animated\" ".
+										"role=\"progressbar\" aria-valuenow=\"75\" aria-valuemin=\"0\" aria-valuemax=\"100\" ".
+										"style=\"width: 75%\">15h/20h</div>".
+									"</div>".
+								"</td>".
 								"<td>$first_name $last_name</td>".
 								"<td><span class=\"badge badge-$label\">$task_status</span></td>".
 								"<td>".
@@ -109,240 +119,6 @@
             </table>
         </div>
     </div>
-	<!-- Add Task Modal -->
-<div class="modal fade" id="AddTask" tabindex="-1" role="dialog" aria-labelledby="AddTaskLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="AddTaskLabel" style="font-size: 20px;">Add Task Dialog</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-	  <form method="post" class="TaskForm" action="add_task.php" novalidate>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">
-						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-list"></i> Task name</span>
-					</span>
-					<input type="text" class="form-control" name="TaskName" placeholder="Task name" required>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">
-						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-cogs"></i> Skill</span>
-					</span>
-					<select class="form-control" name="Skill">
-						<option>C</option>
-						<option>C++</option>
-						<option>Java</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">
-						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-arrow-up"></i> Skill Level</span>
-					</span>
-					<select class="form-control" name="SkillLevel">
-						<option>Level 1</option>
-						<option>Level 2</option>
-						<option>Level 3</option>
-						<option>Level 4</option>
-						<option>Level 5</option>
-						<option>Level 6</option>
-						<option>Level 7</option>
-						<option>Level 8</option>
-						<option>Level 9</option>
-						<option>Level 10</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">
-						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-clock-o"></i> Duration</span>
-					</span>
-					<input type="number" class="form-control" name="Duration" placeholder="Duration" min="0" max="1000" required>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">
-						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-user"></i> Assigned To</span>
-					</span>
-					<select class="form-control" name="AssignedTo">
-						<?php
-							$connection = mysqli_connect($db_hostname, $db_username, $db_password);
-							if(!$connection) {
-								echo "Database Connection Error...".mysqli_connect_error();
-							} else {
-								$sql="SELECT * FROM $database.TeamMembers";
-								$retval = mysqli_query( $connection, $sql );
-								while($row = mysqli_fetch_assoc($retval)) {
-									$first_name=$row["first_name"];
-									$last_name=$row["last_name"];
-									echo "<option>$first_name $last_name</option>";
-								}
-								mysqli_close($connection);
-							}
-						?>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">
-						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-check"></i> Status</span>
-					</span>
-					<select class="form-control" name="Status">
-						<option>Todo</option>
-						<option>In progress</option>
-						<option>Done</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-success">Add Task</button>
-			</div>
-		</form>
-      </div>
-    </div>
-  </div>
-  </div>
-
-  <!-- Edit Task Modal -->
-<div class="modal fade" id="EditTask" tabindex="-1" role="dialog" aria-labelledby="EditTaskLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="EditTaskLabel" style="font-size: 20px;">Edit Task Dialog</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-	  <form method="post" class="TaskForm" action="edit_task.php" novalidate>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">
-						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-list"></i> Task name</span>
-					</span>
-					<input type="text" id="edit-task-name" class="form-control" name="EditTaskName" placeholder="Task name" required>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">
-						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-cogs"></i> Skill</span>
-					</span>
-					<select id="edit-skill" class="form-control" name="EditSkill">
-						<option>C</option>
-						<option>C++</option>
-						<option>Java</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">
-						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-arrow-up"></i> Skill Level</span>
-					</span>
-					<select id="edit-level" class="form-control" name="EditSkillLevel">
-						<option>Level 1</option>
-						<option>Level 2</option>
-						<option>Level 3</option>
-						<option>Level 4</option>
-						<option>Level 5</option>
-						<option>Level 6</option>
-						<option>Level 7</option>
-						<option>Level 8</option>
-						<option>Level 9</option>
-						<option>Level 10</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">
-						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-clock-o"></i> Duration</span>
-					</span>
-					<input type="number" id="edit-duration" class="form-control" name="EditDuration" placeholder="Duration" min="0" max="1000" required>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">
-						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-user"></i> Assigned To</span>
-					</span>
-					<select id="edit-assigned-to" class="form-control" name="EditAssignedTo">
-						<?php
-							$connection = mysqli_connect($db_hostname, $db_username, $db_password);
-							if(!$connection) {
-								echo "Database Connection Error...".mysqli_connect_error();
-							} else {
-								$sql="SELECT * FROM $database.TeamMembers";
-								$retval = mysqli_query( $connection, $sql );
-								while($row = mysqli_fetch_assoc($retval)) {
-									$first_name=$row["first_name"];
-									$last_name=$row["last_name"];
-									echo "<option>$first_name $last_name</option>";
-								}
-								mysqli_close($connection);
-							}
-						?>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">
-						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-check"></i> Status</span>
-					</span>
-					<select id="edit-status" class="form-control" name="EditStatus">
-						<option>Todo</option>
-						<option>In progress</option>
-						<option>Done</option>
-					</select>
-				</div>
-			</div>
-			<input style="visibility: hidden;" type="number" name="EditTaskId" id="edit-task-id">
-			<div class="form-group">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-success">Edit Task</button>
-			</div>
-		</form>
-      </div>
-    </div>
-  </div>
-  </div>
-  	
-	<!-- Delete Task Modal -->
-	<div class="modal fade" id="DeleteTask" tabindex="-1" role="dialog" aria-labelledby="DeleteTaskLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="DeleteTaskLabel" style="font-size: 20px;">Delete Task Dialog</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form method="post" class="TaskForm" action="delete_task.php" novalidate>
-						<span id="task-name"></span>
-						<input style="visibility: hidden;" type="number" name="TaskId" id="TaskIdInput">
-						<div class="form-group">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-success">Yes</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
