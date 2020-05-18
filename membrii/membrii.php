@@ -98,28 +98,27 @@
 
 									$hours_short = str_replace("/day", "", $hours);
 
-									echo <<<EXCERPT
-											<li class="sidebar-dropdown">
-												<a href="#">
-													<i class="fa fa-tachometer-alt"></i>
-													<span>$first_name $last_name</span>
-													<span class="badge badge-pill badge-warning">$hours_short</span>
-												</a>
-												<div class="sidebar-submenu">
-													<ul>
-														<li>
-															<a href="#">Skill: <span style="float: none; font-size: 1em;" class="badge badge-pill badge-info">$skill</span></a>
-														</li>
-														<li>
-															<a href="#">Level: <span style="float: none; font-size: 1em;" class="badge badge-pill badge-info">$skill_level</span></a>
-														</li>
-														<li>
-															<a href="#">Working hours: <span style="float: none; font-size: 1em;" class="badge badge-pill badge-warning">$hours</span></a>
-														</li>
-													</ul>
-												</div>
-											</li>
-											EXCERPT;
+									echo "".
+											"<li class=\"sidebar-dropdown\">".
+												'<a href="#">'.
+													'<i class="fa fa-tachometer-alt"></i>'.
+													"<span>$first_name $last_name</span>".
+													"<span class=\"badge badge-pill badge-warning\">$hours_short</span>".
+												'</a>'.
+												'<div class="sidebar-submenu">'.
+													'<ul>'.
+														'<li>'.
+															"<a href=\"#\">Skill: <span style=\"float: none; font-size: 1em;\" class=\"badge badge-pill badge-info\">$skill</span></a>".
+														'</li>'.
+														'<li>'.
+															"<a href=\"#\">Level: <span style=\"float: none; font-size: 1em;\" class=\"badge badge-pill badge-info\">$skill_level</span></a>".
+														'</li>'.
+														'<li>'.
+															"<a href=\"#\">Working hours: <span style=\"float: none; font-size: 1em;\" class=\"badge badge-pill badge-warning\">$hours</span></a>".
+														'</li>'.
+													'</ul>'.
+												'</div>'.
+											'</li>';
 								}
 								mysqli_close($connection);
 							}
