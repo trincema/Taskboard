@@ -25,7 +25,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			$_SESSION['user_id'] = $user_id;
 			mysqli_close($connection);
 			// Redirect to Home page
-			header("location: http://localhost/taskboard");
 		} else {
 			$login_err = "The username or password is not correct!";
 		}

@@ -1,6 +1,8 @@
 (function() {
     'use strict';
     window.addEventListener('load', function() {
+      var progressItems = document.getElementsByClassName('progress-bar');
+      this.console.log("progressItems: " + progressItems.length);
       // Fetch all the forms we want to apply custom Bootstrap validation styles to
       var forms = document.getElementsByClassName('TaskForm');
       // Loop over them and prevent submission
@@ -43,3 +45,4 @@
     document.getElementById('task-name').innerHTML = "Are you sure you want to delete task <i>" + taskName + "</i>?";
     document.getElementById("TaskIdInput").value = parseInt(taskId);
   });
+
