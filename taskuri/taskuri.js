@@ -8,7 +8,35 @@
       // Loop over them and prevent submission
       var validation = Array.prototype.filter.call(forms, function(form) {
         form.addEventListener('submit', function(event) {
-          if (form.checkValidity() === false) {
+          const Http = new XMLHttpRequest();
+          const url='http://localhost/taskboard/header/users.php';
+          Http.open("POST", url);
+          Http.send();
+          var skillLevelEnough = false;
+          Http.onreadystatechange = (e) => {
+            if(Http.readyState === 4 && Http.status === 200) {
+              var users = JSON.parse(Http.responseText);
+              for (var user of users) {
+                var uiUser = document.getElementById("add_task_user");
+                if (uiUser.value === (user.first_name + " " + user.last_name)) {
+                  var skill = document.getElementById("add_task_skill");
+                  var skill_level = document.getElementById("add_task_skill_level");
+                  if (skill.value === user.skill &&
+                     (skill_level.value.localeCompare(user.level) === -1 || skill_level.value.localeCompare(user.level) === 0)) {
+                       skillLevelEnough = true;
+                       document.getElementById("add_task_error").innerHTML = "";
+                  } else {
+                    // Skill & level not enough
+                    document.getElementById("add_task_error").innerHTML = "User not matched for the task. The skill and/or skill level is different than that required by the task!";
+                    skillLevelEnough = false;
+                  }
+                }
+              }
+            }
+          }
+
+          if (form.checkValidity() === false || skillLevelEnough === true) {
+            console.log('disable');
             event.preventDefault();
             event.stopPropagation();
           } else {

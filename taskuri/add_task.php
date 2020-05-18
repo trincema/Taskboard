@@ -1,5 +1,4 @@
 <?php
-include "../db_connection.php";
 $add_task_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 	$task_name = $_POST['TaskName'];
@@ -77,9 +76,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			if(! $retval ) {
 				echo"Error access in table TeamMembers".mysqli_error($connection);
 			}
-			header("location: http://localhost/taskboard");
-		} else {
-			$add_task_err = "User not matched for the task. The skill and/or skill level is different than that required by the task!";
 		}
 		
         mysqli_close($connection);
@@ -111,7 +107,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 					<span class="input-group-addon">
 						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-cogs"></i> Skill</span>
 					</span>
-					<select class="form-control" id="skill_add_task" name="Skill">
+					<select class="form-control" id="add_task_skill" name="Skill">
 						<option>C</option>
 						<option>C++</option>
 						<option>Java</option>
@@ -123,7 +119,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 					<span class="input-group-addon">
 						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-arrow-up"></i> Skill Level</span>
 					</span>
-					<select class="form-control" id="skill_level_add_task" name="SkillLevel">
+					<select class="form-control" id="add_task_skill_level" name="SkillLevel">
 						<option>Level 1</option>
 						<option>Level 2</option>
 						<option>Level 3</option>
@@ -150,7 +146,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 					<span class="input-group-addon">
 						<span style="display: inline-block; width: 10em; text-align: left;"> <i class="fa fa-user"></i> Assigned To</span>
 					</span>
-					<select class="form-control" name="AssignedTo">
+					<select class="form-control" name="AssignedTo" id="add_task_user">
 						<?php
 							$connection = mysqli_connect($db_hostname, $db_username, $db_password);
 							if(!$connection) {
@@ -181,11 +177,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 					</select>
 				</div>
 			</div>
-			<?php
-				if(!empty($add_task_err)) {
-					echo "<div style=\"width: 100%; margin-top: .25rem; margin-bottom: .25rem; font-size: 80%; color: #dc3545;\">$add_task_err</div>";
-				}
-			?>
+			<div id="add_task_error" style="width: 100%; margin-top: .25rem; margin-bottom: .25rem; font-size: 80%; color: #dc3545;"></div>
 			<div class="form-group">
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 				<button type="submit" class="btn btn-success">Add Task</button>

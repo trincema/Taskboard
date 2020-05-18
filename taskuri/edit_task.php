@@ -1,5 +1,4 @@
 <?php
-include "../db_connection.php";
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 	$id = $_POST['EditTaskId'];
 	$task_name = $_POST['EditTaskName'];
