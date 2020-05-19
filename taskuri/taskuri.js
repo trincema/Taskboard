@@ -102,6 +102,8 @@ function start(taskid) {
     var durationMinutes = duration * 60;
     for (var task of runningTasks) {
       if (task.id === id && task.running) {
+        document.getElementById("start-" + id).disabled = true;
+        document.getElementById("stop-" + id).disabled = false;
         task.time = updateTime;
         task.duration = durationMinutes;
         var displayTime = Math.round(task.time / task.duration * 100);
@@ -129,6 +131,14 @@ function start(taskid) {
           // Automatically put task on done
           var taskStatus = document.getElementById('task-status-' + id);
           taskStatus.innerHTML = "Done";
+          var durationElem = document.getElementById('duration-' + id);
+          durationElem.innerHTML = "0h";
+          document.getElementById("start-" + id).disabled = true;
+          document.getElementById("stop-" + id).disabled = true;
+          $("#start-" + id).removeClass("btn-secondary");
+          $("#stop-" + id).removeClass("btn-secondary");
+          $("#start-" + id).addClass("btn-light");
+          $("#stop-" + id).addClass("btn-light");
           $("#task-status-" + task.id).removeClass("badge-warning");
           $("#task-status-" + task.id).removeClass("badge-danger");
           $("#task-status-" + task.id).addClass("badge-success");
@@ -170,4 +180,6 @@ function stop(id) {
   }
   $("#progress-" + id).removeClass("progress-bar-striped");
   $("#progress-" + id).removeClass("progress-bar-animated");
+  document.getElementById("start-" + id).disabled = false;
+  document.getElementById("stop-" + id).disabled = true;
 }
