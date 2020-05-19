@@ -108,13 +108,9 @@
 											"style=\"width: 0%\">0 %".
 										"</div>".
 									"</div>".
-									"<div class=\"btn-group btn-group-toggle btn-group-sm\" data-toggle=\"buttons\" style=\"width:100%; padding-top:5px;\">".
-										"<label class=\"btn btn-$progressColor\" $progressDisabled>".
-											"<input type=\"radio\" name=\"options\" onclick=\"start($id)\" checked> Start".
-										"</label>".
-										"<label class=\"btn btn-$progressColor\" $progressDisabled>".
-											"<input type=\"radio\" name=\"options\" onclick=\"stop($id)\" checked> Stop".
-										"</label>".
+									"<div class=\"btn-group btn-group-toggle btn-group-sm\" role=\"group\" style=\"width:100%; padding-top:5px;\">".
+										"<button id=\"start-$id\" type=\"button\" class=\"btn btn-$progressColor\" onclick=\"start($id)\" $progressDisabled>Start</button>".
+										"<button id=\"stop-$id\" type=\"button\" class=\"btn btn-$progressColor\" onclick=\"stop($id)\" $progressDisabled>Stop</button>".
 									"</div>".
 								"</td>".
 								"<td>$first_name $last_name</td>".
