@@ -1,11 +1,14 @@
 <?php
-include "../db_connection.php";
+$db_hostname="127.0.0.1:3306";
+$db_username="root";
+$db_password="";
+$database="taskboard";
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['TaskId'];
     $sql="DELETE FROM $database.Tasks WHERE id='$id'";
 	$connection = mysqli_connect($db_hostname, $db_username, $db_password);
 	if(!$connection) {
-		echo "Database Connection Error...".mysqli_connect_error();
+		echo "Database Connection Error: ".mysqli_connect_error();
 	} else {
 		$retval = mysqli_query( $connection, $sql );
 		if(! $retval ) {
@@ -26,7 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				</button>
 			</div>
 			<div class="modal-body">
-				<form method="post" action="delete_task.php" novalidate>
+				<form method="post" class="TaskForm" action="delete_task.php" novalidate>
 					<span id="task-name"></span>
 					<input style="visibility: hidden;" type="number" name="TaskId" id="TaskIdInput">
 					<div class="form-group">
