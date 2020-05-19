@@ -1,4 +1,8 @@
 <?php
+$db_hostname="127.0.0.1:3306";
+$db_username="root";
+$db_password="";
+$database="taskboard";
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 	$id = $_POST['EditTaskId'];
 	$task_name = $_POST['EditTaskName'];

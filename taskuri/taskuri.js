@@ -74,8 +74,17 @@
   });
 
 var runningTasks = [];
+var simulated = true;
 
 function start(taskid) {
+  var schedule = 0;
+  if (simulated) {
+    // 1 minute elapses in 0.5 seconds
+    schedule = 500;
+  } else {
+    // Real time
+    schedule = 60 * 1000; // 60 seconds
+  }
   for (var task of runningTasks) {
     if (task.id === taskid) {
       // If task found, just resume

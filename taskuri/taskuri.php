@@ -40,6 +40,7 @@
 					include "../db_connection.php";
 					include "add_task.php";
 					include "edit_task.php";
+					include "delete_task.php";
 					$connection = mysqli_connect($db_hostname, $db_username, $db_password);
 					if(!$connection) {
 						echo"Database Connection Error...".mysqli_connect_error();
