@@ -36,7 +36,6 @@
           }
 
           if (form.checkValidity() === false || skillLevelEnough === true) {
-            console.log('disable');
             event.preventDefault();
             event.stopPropagation();
           } else {
@@ -74,3 +73,92 @@
     document.getElementById("TaskIdInput").value = parseInt(taskId);
   });
 
+var runningTasks = [];
+
+function start(taskid) {
+  for (var task of runningTasks) {
+    if (task.id === taskid) {
+      // If task found, just resume
+      if (!task.running) {
+        task.running = true;
+        task.update(task.time, taskid);
+        $("#progress-" + taskid).addClass("progress-bar-striped");
+        $("#progress-" + taskid).addClass("progress-bar-animated");
+        return;
+      }
+    }
+  }
+  var taskObject = {id: taskid, time: 0, duration: 0, running: true, update: function(updateTime, id) {
+    var duration = parseInt(document.getElementById('duration-' + id).innerHTML);
+    var durationMinutes = duration * 60;
+    for (var task of runningTasks) {
+      if (task.id === id && task.running) {
+        task.time = updateTime;
+        task.duration = durationMinutes;
+        var displayTime = Math.round(task.time / task.duration * 100);
+        if (displayTime <= 50) {
+          $("#progress-" + task.id).addClass("bg-danger");
+        } else if (displayTime <= 80) {
+          $("#progress-" + task.id).removeClass("bg-danger");
+          $("#progress-" + task.id).addClass("bg-warning");
+        } else if (displayTime <= 90) {
+          $("#progress-" + task.id).removeClass("bg-warning");
+          $("#progress-" + task.id).addClass("bg-info");
+        }
+        if (displayTime >= 100) {
+          $("#progress-" + task.id).removeClass("bg-info");
+          $("#progress-" + task.id).addClass("bg-success");
+          $("#progress-" + task.id).css("width", 100 + "%").text(100 + " %");
+          $("#progress-" + task.id).removeClass("progress-bar-striped");
+          $("#progress-" + task.id).removeClass("progress-bar-animated");
+          for( var i = 0; i < runningTasks.length; i++) {
+            if ( runningTasks[i].id === id) {
+              runningTasks.splice(i, 1);
+              break;
+            }
+          }
+          // Automatically put task on done
+          var taskStatus = document.getElementById('task-status-' + id);
+          taskStatus.innerHTML = "Done";
+          $("#task-status-" + task.id).removeClass("badge-warning");
+          $("#task-status-" + task.id).removeClass("badge-danger");
+          $("#task-status-" + task.id).addClass("badge-success");
+          // And now in the database
+          const Http = new XMLHttpRequest();
+          const url='http://localhost/taskboard/taskuri/finish_task.php?id=' + id;
+          Http.open("GET", url);
+          Http.send();
+          Http.onreadystatechange = (e) => {
+            if(Http.readyState === 4 && Http.status === 200) {
+              console.log('Task ' + id + " done");
+            }
+          }
+        } else {
+          setTimeout(function() {
+            task.update(task.time + 1, id);
+            $("#progress-" + id).css("width", displayTime + "%").text(displayTime + " %");
+          }, 500);
+        }
+        break;
+      }
+    }
+  }};
+  $("#progress-" + taskid).addClass("progress-bar-striped");
+  $("#progress-" + taskid).addClass("progress-bar-animated");
+  runningTasks.push(taskObject);
+  taskObject.update(0, taskid);
+}
+
+function stop(id) {
+  for (var task of runningTasks) {
+    if (task.id === id) {
+      // Stop the task
+      console.log('task ' + id + " stopped");
+      task.running = false;
+      console.log(task.time);
+      break;
+    }
+  }
+  $("#progress-" + id).removeClass("progress-bar-striped");
+  $("#progress-" + id).removeClass("progress-bar-animated");
+}
