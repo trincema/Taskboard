@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="taskuri.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -86,21 +87,37 @@
 								$label='warning';
 							else
 								$label='success';
+							$progressDisabled = "";
+							$progressColor = "secondary";
+							if ($task_status == "Done" || $task_status == "Todo") {
+								$progressDisabled = "disabled";
+								$progressColor = "light";
+							}
+							$measureUnit = "h";
 							echo "<tr>".
 								"<td>$id</td>".
 								"<td>$task_name</td>".
 								"<td>$skill</td>".
 								"<td>$skill_level</td>".
-								"<td>$duration</td>".
+								"<td id=\"duration-$id\">$duration$measureUnit</td>".
 								"<td>".
-									"<div class=\"progress\" style=\"height: 10px;\">".
-										"<div class=\"progress-bar progress-bar-striped progress-bar-animated\" ".
-										"role=\"progressbar\" aria-valuenow=\"75\" aria-valuemin=\"0\" aria-valuemax=\"100\" ".
-										"style=\"width: 75%\">15h/20h</div>".
+									"<div class=\"progress\" style=\"height: 15px;\">".
+										"<div class=\"progress-bar\" id=\"progress-$id\"".
+											"role=\"progressbar\" aria-valuenow=\"75\" aria-valuemin=\"0\" aria-valuemax=\"100\" ".
+											"style=\"width: 0%\">0 %".
+										"</div>".
+									"</div>".
+									"<div class=\"btn-group btn-group-toggle btn-group-sm\" data-toggle=\"buttons\" style=\"width:100%; padding-top:5px;\">".
+										"<label class=\"btn btn-$progressColor\" $progressDisabled>".
+											"<input type=\"radio\" name=\"options\" onclick=\"start($id)\" checked> Start".
+										"</label>".
+										"<label class=\"btn btn-$progressColor\" $progressDisabled>".
+											"<input type=\"radio\" name=\"options\" onclick=\"stop($id)\" checked> Stop".
+										"</label>".
 									"</div>".
 								"</td>".
 								"<td>$first_name $last_name</td>".
-								"<td><span class=\"badge badge-$label\">$task_status</span></td>".
+								"<td><span id=\"task-status-$id\" class=\"badge badge-$label\">$task_status</span></td>".
 								"<td>".
 								"<a class=\"edit\" title=\"Edit\" data-toggle=\"modal\" data-target=\"#EditTask\" ".
 									"data-task-id=\"$id\" data-task-name=\"$task_name\" data-skill=\"$skill\" ".
