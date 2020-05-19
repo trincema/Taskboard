@@ -96,7 +96,7 @@
 							$measureUnit = "h";
 							echo "<tr>".
 								"<td>$id</td>".
-								"<td>$task_name</td>".
+								"<td><b>$task_name</b></td>".
 								"<td>$skill</td>".
 								"<td>$skill_level</td>".
 								"<td id=\"duration-$id\">$duration$measureUnit</td>".
