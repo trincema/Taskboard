@@ -120,6 +120,7 @@
 				"skill INT NOT NULL,".
 				"skill_level INT NOT NULL,".
 				"work_hours INT NOT NULL,".
+				"role VARCHAR(10) NOT NULL,".
 				"CONSTRAINT fk_skill FOREIGN KEY (skill) REFERENCES Skills(id),".
 				"CONSTRAINT fk_nivel_skill FOREIGN KEY (skill_level) REFERENCES SkillLevel(id),".
 				"CONSTRAINT fk_work_hours FOREIGN KEY (work_hours) REFERENCES WorkingHours(id))";

@@ -17,8 +17,28 @@
                 <div class="row">
                     <div class="col-sm-8"><h2>Taskboard <b>Details</b></h2></div>
                     <div class="col-sm-4">
-                        <button type="button" class="btn btn-info add-new" data-toggle="modal" data-target="#AddTask"><i class="fa fa-plus"></i> Add Task</button>
-                    </div>
+					<?php
+						include "../db_connection.php";
+						session_start();
+						if (isset($_SESSION['user_id'])) {
+							$connection = mysqli_connect($db_hostname, $db_username, $db_password);
+							$userId = $_SESSION['user_id'];
+							$sql = "SELECT * FROM $database.TeamMembers WHERE id = '$userId'";
+							$retval = mysqli_query( $connection, $sql );
+
+							if(! $retval ) {
+								echo "Error accessing table TeamMembers0: ".mysqli_error($connection);
+							}
+							while($row = mysqli_fetch_assoc($retval)) {
+								$role= $row["role"];
+								if($role == 'Admin')
+								echo "<button type=\"button\" class=\"btn btn-info add-new\" data-toggle=\"modal\" data-target=\"#AddTask\"><i class=\"fa fa-plus\"></i> Add Task</button>";
+							}
+							mysqli_close($connection);
+						}
+                        
+					?>
+						</div>
                 </div>
             </div>
             <table class="table table-bordered">
@@ -37,7 +57,6 @@
                 </thead>
                 <tbody>
 				<?php
-					include "../db_connection.php";
 					include "add_task.php";
 					include "edit_task.php";
 					include "delete_task.php";
@@ -74,6 +93,7 @@
 							while($row1= mysqli_fetch_assoc($retval1)){
 								$first_name=$row1["first_name"];
 								$last_name=$row1["last_name"];
+
 							}
 							$sql="SELECT * FROM $database.TaskStatus WHERE id=$task_status_id";
 							$retval1 = mysqli_query( $connection, $sql );
@@ -119,11 +139,25 @@
 								"<a class=\"edit\" title=\"Edit\" data-toggle=\"modal\" data-target=\"#EditTask\" ".
 									"data-task-id=\"$id\" data-task-name=\"$task_name\" data-skill=\"$skill\" ".
 									"data-level=\"$skill_level\" data-duration=\"$duration\" data-first-name=\"$first_name\" ".
-									"data-last-name=\"$last_name\" data-status=\"$task_status\"><i class=\"material-icons\">&#xE254;</i></a>".
-								"<a class=\"delete\" title=\"Delete\" data-toggle=\"modal\" data-target=\"#DeleteTask\" ".
-									"data-task-id=\"$id\" data-task-name=\"$task_name\"><i class=\"material-icons\">&#xE872;</i></a>".
-								"</td>".
-								"</tr>" ;
+									"data-last-name=\"$last_name\" data-status=\"$task_status\"><i class=\"material-icons\">&#xE254;</i></a>";
+									if (isset($_SESSION['user_id'])) {
+									$userId = $_SESSION['user_id'];
+									$sql = "SELECT * FROM $database.TeamMembers WHERE id = '$userId'";
+									$retval2 = mysqli_query( $connection, $sql );
+									if(! $retval2 ) {
+										echo "Error accessing table TeamMembers0: ".mysqli_error($connection);
+									}
+									while($row = mysqli_fetch_assoc($retval2)) {
+										$role= $row["role"];
+										if($role == 'Admin')	
+										echo "<a class=\"delete\" title=\"Delete\" data-toggle=\"modal\" data-target=\"#DeleteTask\" ".
+										"data-task-id=\"$id\" data-task-name=\"$task_name\"><i class=\"material-icons\">&#xE872;</i></a>";
+									}
+									}
+									
+							echo 
+							"</td>".
+							"</tr>" ;
 						}
 
 					}

@@ -42,12 +42,14 @@
 								while($row = mysqli_fetch_assoc($retval)) {
 									$firstName = $row["first_name"];
 									$lastName = $row["last_name"];
+									$role= $row["role"];
 									echo "<span class=\"user-name\">$firstName <strong>$lastName</strong></span>";
+									echo "<span class=\"user-role\">$role</span>";
 								}
 								mysqli_close($connection);
 							}
 						?>
-						<span class="user-role">Operator</span>
+						
 						<span class="user-status">
 							<i class="fa fa-circle"></i>
 							<span>Online</span>
@@ -74,6 +76,7 @@
 									$work_hours = $row["work_hours"];
 									$skill_id = $row["skill"];
 									$skill_level_id = $row["skill_level"];
+									$role= $row["role"];
 
 									$sql="SELECT * FROM $database.Skills WHERE id=$skill_id";
 									$retval1 = mysqli_query( $connection, $sql );
@@ -97,7 +100,7 @@
 									}
 
 									$hours_short = str_replace("/day", "", $hours);
-
+									if($role == 'Operator')
 									echo "".
 											"<li class=\"sidebar-dropdown\">".
 												'<a href="#">'.
