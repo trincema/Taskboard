@@ -115,6 +115,19 @@
 								$progressColor = "light";
 							}
 							$measureUnit = "h";
+							$role="";
+							if (isset($_SESSION['user_id'])) {
+								$userId = $_SESSION['user_id'];
+								$sql = "SELECT * FROM $database.TeamMembers WHERE id = '$userId'";
+								$retval2 = mysqli_query( $connection, $sql );
+								if(! $retval2 ) {
+									echo "Error accessing table TeamMembers0: ".mysqli_error($connection);
+								}
+								while($row = mysqli_fetch_assoc($retval2)) {
+									$role= $row["role"];
+								}
+								}
+							if($assigned_member_id == $userId || $role == 'Admin'){
 							echo "<tr>".
 								"<td>$id</td>".
 								"<td><b>$task_name</b></td>".
@@ -127,11 +140,13 @@
 											"role=\"progressbar\" aria-valuenow=\"75\" aria-valuemin=\"0\" aria-valuemax=\"100\" ".
 											"style=\"width: 0%\">0 %".
 										"</div>".
-									"</div>".
-									"<div class=\"btn-group btn-group-toggle btn-group-sm\" role=\"group\" style=\"width:100%; padding-top:5px;\">".
-										"<button id=\"start-$id\" type=\"button\" class=\"btn btn-$progressColor\" onclick=\"start($id)\" $progressDisabled>Start</button>".
-										"<button id=\"stop-$id\" type=\"button\" class=\"btn btn-$progressColor\" onclick=\"stop($id)\" $progressDisabled>Stop</button>".
-									"</div>".
+									"</div>";
+									if($role == 'Operator')
+									echo "<div class=\"btn-group btn-group-toggle btn-group-sm\" role=\"group\" style=\"width:100%; padding-top:5px;\">".
+									"<button id=\"start-$id\" type=\"button\" class=\"btn btn-$progressColor\" onclick=\"start($id)\" $progressDisabled>Start</button>".
+									"<button id=\"stop-$id\" type=\"button\" class=\"btn btn-$progressColor\" onclick=\"stop($id)\" $progressDisabled>Stop</button>".
+									"</div>";
+								echo	
 								"</td>".
 								"<td>$first_name $last_name</td>".
 								"<td><span id=\"task-status-$id\" class=\"badge badge-$label\">$task_status</span></td>".
@@ -140,24 +155,14 @@
 									"data-task-id=\"$id\" data-task-name=\"$task_name\" data-skill=\"$skill\" ".
 									"data-level=\"$skill_level\" data-duration=\"$duration\" data-first-name=\"$first_name\" ".
 									"data-last-name=\"$last_name\" data-status=\"$task_status\"><i class=\"material-icons\">&#xE254;</i></a>";
-									if (isset($_SESSION['user_id'])) {
-									$userId = $_SESSION['user_id'];
-									$sql = "SELECT * FROM $database.TeamMembers WHERE id = '$userId'";
-									$retval2 = mysqli_query( $connection, $sql );
-									if(! $retval2 ) {
-										echo "Error accessing table TeamMembers0: ".mysqli_error($connection);
-									}
-									while($row = mysqli_fetch_assoc($retval2)) {
-										$role= $row["role"];
-										if($role == 'Admin')	
+									if($role == 'Admin')	
 										echo "<a class=\"delete\" title=\"Delete\" data-toggle=\"modal\" data-target=\"#DeleteTask\" ".
 										"data-task-id=\"$id\" data-task-name=\"$task_name\"><i class=\"material-icons\">&#xE872;</i></a>";
-									}
-									}
 									
 							echo 
 							"</td>".
 							"</tr>" ;
+						}
 						}
 
 					}
